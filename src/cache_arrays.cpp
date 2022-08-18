@@ -64,6 +64,16 @@ void SetAssocArray::postinsert(const Address lineAddr, const MemReq* req, uint32
     rp->update(candidate, req);
 }
 
+void SetAssocArray::initStats(AggregateStat* parentStat) {
+    AggregateStat* objStats = new AggregateStat();
+    objStats->init("array", "SetAssocArray stats");
+    statcachearrayLookup.init("lookup", "lookups in cache array");
+    objStats->append(&statcachearrayLookup);
+    parentStat->append(objStats);
+ }
+
+
+
 
 /* ZCache implementation */
 
@@ -91,7 +101,9 @@ void ZArray::initStats(AggregateStat* parentStat) {
     AggregateStat* objStats = new AggregateStat();
     objStats->init("array", "ZArray stats");
     statSwaps.init("swaps", "Block swaps in replacement process");
+    statcachearrayLookup.init("lookup", "lookups in cache array");
     objStats->append(&statSwaps);
+    objStats->append(&statcachearrayLookup);
     parentStat->append(objStats);
 }
 
@@ -101,6 +113,7 @@ int32_t ZArray::lookup(const Address lineAddr, const MemReq* req, bool updateRep
      * system, phy page 0 might be used, and this will hit us in a very subtle
      * way if we don't check.
      */
+    statcachearrayLookup.inc(1);
     if (unlikely(!lineAddr)) panic("ZArray::lookup called with lineAddr==0 -- your app just segfaulted");
 
     for (uint32_t w = 0; w < ways; w++) {

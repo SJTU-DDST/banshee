@@ -1,0 +1,2 @@
+run_base_test_zsim-m64.0000 dir=/home/yuhang/banshee/benchmarks/spec2017/benchspec/CPU/505.mcf_r/run/run_base_test_zsim-m64.0000 label=zsim-m64 lock=0 size=test tune=base type=run username=yuhang
+__END__

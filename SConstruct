@@ -161,6 +161,18 @@ def buildSim(cppFlags, dir, type, pgo=None):
         env["PINCPPFLAGS"] += useFlags
         env["PINLINKFLAGS"] += useFlags
 
+    #if "DRAMSIM2PATH" in os.environ:
+    #    DRAMSIM2PATH = "/home/yuhang/DRAMSim2" 
+    #    env["CPPFLAGS"] += " -Wl,-R" + DRAMSIM2PATH
+    #    env["PINLIBPATH"] += [DRAMSIM2PATH]
+    #    env["CPPPATH"] += [DRAMSIM2PATH]
+    #    env["PINLIBS"] += ["dramsim2"]
+    #    env["CPPFLAGS"] += " -D_WITH_DRAMSIM3_=1 "
+    #    env["LIBPATH"] += [joinpath(DRAMSIM2PATH)]	
+
+    
+
+
     env.SConscript("src/SConscript", variant_dir=buildDir, exports= {'env' : env.Clone()})
 
 ####
@@ -220,4 +232,5 @@ elif pgoPhase.startswith("use"):
     Depends(Glob(joinpath(baseDir, "*.os")), "pgo-tmp/zsim.out") #force a rebuild
 else:
     for type in buildTypes:
-        buildSim(buildFlags[type], baseBuildDir, type)
+        buildSim(buildFlags[type], baseBuildDir, type)	
+

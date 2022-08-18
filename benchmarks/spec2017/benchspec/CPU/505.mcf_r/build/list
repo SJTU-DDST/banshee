@@ -1,0 +1,2 @@
+build_base_zsim-m64.0000 dir=/home/yuhang/banshee/benchmarks/spec2017/benchspec/CPU/505.mcf_r/build/build_base_zsim-m64.0000 label=zsim-m64 lock=0 tune=base type=build username=yuhang
+__END__
